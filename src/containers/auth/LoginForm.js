@@ -1,11 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthForm';
-import { changeField, initializeForm } from '../../modules/auth';
+import { changeField, initializeForm, login } from '../../modules/auth';
+import { useHistory } from 'react-router-dom';
+import { check } from '../../modules/user';
 
 const LoginForm = () => {
+  const [error, setError] = useState(null);
+  const history = useHistory();
   const dispatch = useDispatch();
-  const { login } = useSelector((state) => state.auth);
+  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
+    form: auth.login,
+    auth: auth.auth,
+    authError: auth.authError,
+    user: user.user,
+  }));
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -20,18 +29,38 @@ const LoginForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const { username, password } = form;
+    dispatch(login({ username, password }));
   };
 
   useEffect(() => {
     dispatch(initializeForm('login'));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (user) {
+      history.push('/');
+    }
+  }, [user, history]);
+
+  useEffect(() => {
+    setError('');
+    if (authError) {
+      setError('로그인 실패');
+      return;
+    }
+    if (auth) {
+      dispatch(check());
+    }
+  }, [auth, authError, history, dispatch]);
+
   return (
     <AuthForm
       type="login"
       onChange={onChange}
       onSubmit={onSubmit}
-      form={login}
+      form={form}
+      error={error}
     />
   );
 };
