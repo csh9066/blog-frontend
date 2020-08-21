@@ -1,6 +1,13 @@
 import React from 'react';
+import HedaerContainer from '../containers/common/HedaerContainer';
+import PostViewerContainer from '../containers/post/PostViewerContainer';
 
 const PostPage = () => {
-  return <div>포스트 읽기</div>;
+  return (
+    <>
+      <HedaerContainer />
+      <PostViewerContainer />
+    </>
+  );
 };
 export default PostPage;
