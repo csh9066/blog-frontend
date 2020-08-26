@@ -1,11 +1,15 @@
 import React from 'react';
-import Button from '../components/common/Button';
+import HedaerContainer from '../containers/common/HedaerContainer';
+import PostListContainer from '../containers/posts/PostListContainer';
+import PagingnationContainer from '../containers/posts/PagingnationContainer';
 
 const PostListPage = () => {
   return (
-    <div>
-      <Button>안뇽</Button>
-    </div>
+    <>
+      <HedaerContainer />
+      <PostListContainer />
+      <PagingnationContainer />
+    </>
   );
 };
 export default PostListPage;
