@@ -60,7 +60,7 @@ const TagListBlock = styled.div`
 `;
 
 const TagItem = React.memo(({ tag, onRemove }) => {
-  return <Tag onClick={onRemove}>#{tag} </Tag>;
+  return <Tag onClick={() => onRemove(tag)}>#{tag} </Tag>;
 });
 
 const TagList = React.memo(({ tags, onRemove }) => (

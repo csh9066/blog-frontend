@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/Reponsive';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -51,7 +52,7 @@ const PostContent = styled.div`
   color: ${palette.gray[8]};
 `;
 
-const PostViewer = ({ post, error, loading }) => {
+const PostViewer = ({ post, error, loading, actionButtons, ownPost }) => {
   if (error) {
     if (error.response && error.response.status === 404) {
       return <PostViewerBlock>NOT FOUND POST</PostViewerBlock>;
@@ -59,8 +60,6 @@ const PostViewer = ({ post, error, loading }) => {
     return <PostViewerBlock>Error</PostViewerBlock>;
   }
   if (loading || !post) return null;
-
-  console.log(post);
   return (
     <PostViewerBlock>
       <PostHead>
@@ -74,11 +73,12 @@ const PostViewer = ({ post, error, loading }) => {
         <Tags>
           {post.Tags.map((tag) => (
             <div className="tag" key={tag.id}>
-              #{tag.body}
+              <Link to={`/?tag=${tag.body}`}>#{tag.body}</Link>
             </div>
           ))}
         </Tags>
       </PostHead>
+      {ownPost && actionButtons}
       <PostContent dangerouslySetInnerHTML={{ __html: post.body }} />
     </PostViewerBlock>
   );
