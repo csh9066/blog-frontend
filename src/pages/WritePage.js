@@ -3,14 +3,20 @@ import Responsive from '../components/common/Reponsive';
 import WriteActionButtonsContainer from '../containers/write/WriteActionButtonsContainer';
 import EditorContainer from '../containers/write/EditorContainer';
 import TagBoxContainer from '../containers/write/TagBoxContainer';
+import { Helmet } from 'react-helmet-async';
 
 const WritePage = () => {
   return (
-    <Responsive>
-      <EditorContainer />
-      <TagBoxContainer />
-      <WriteActionButtonsContainer />
-    </Responsive>
+    <>
+      <Helmet>
+        <title>글 작성하기 - Blog</title>
+      </Helmet>
+      <Responsive>
+        <EditorContainer />
+        <TagBoxContainer />
+        <WriteActionButtonsContainer />
+      </Responsive>
+    </>
   );
 };
 export default WritePage;

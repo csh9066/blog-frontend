@@ -4,6 +4,7 @@ import palette from '../../lib/styles/palette';
 import Responsive from '../common/Reponsive';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -62,6 +63,9 @@ const PostViewer = ({ post, error, loading, actionButtons, ownPost }) => {
   if (loading || !post) return null;
   return (
     <PostViewerBlock>
+      <Helmet>
+        <title>{post.title} - Blog</title>
+      </Helmet>
       <PostHead>
         <h1>{post.title}</h1>
         <SubInfo>
